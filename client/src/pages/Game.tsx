@@ -66,7 +66,7 @@ export const Game = () => {
 
   return (
     <div>
-      <div>Click Count: {clickCount}</div>
+      <div className="m-auto p-4">Click Count: {clickCount}</div>
       <div className="grid grid-cols-6 gap-4">
         {shuffledData.map((card, i) => (
           <Card
@@ -80,7 +80,9 @@ export const Game = () => {
       </div>
       <div className="m-auto w-10 pt-5">
         <button
-          className={`bg-slate-400 px-4 ${isGameStarted ? 'hidden' : ''}`}
+          className={`bg-slate-400 px-6 py-2 text-xl ${
+            isGameStarted ? 'hidden' : ''
+          }`}
           onClick={startGame}
         >
           Start
