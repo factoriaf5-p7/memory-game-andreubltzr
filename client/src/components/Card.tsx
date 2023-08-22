@@ -1,14 +1,24 @@
-import { data } from '../data/data';
+export interface CardProps {
+  name: string;
+  img: string;
+  isHidden: boolean;
+  onClick: () => void;
+}
 
-export const Card = () => {
+export const Card = ({ name, img, isHidden, onClick }: CardProps) => {
   return (
-    <div className="grid grid-cols-6 gap-4">
-      {data.map((card, i) => (
-        <div key={i} className=" flex flex-col items-center justify-center">
-          <img src={card.img} alt={card.name} />
-          <p>{card.name}</p>
-        </div>
-      ))}
+    <div
+      className={`${
+        isHidden ? 'bg-gray-700' : ''
+      } w-32 h-32 flex flex-col items-center justify-center cursor-pointer`}
+      onClick={onClick}
+    >
+      {!isHidden && (
+        <>
+          <img src={img} alt={name} />
+          <p>{name}</p>
+        </>
+      )}
     </div>
   );
 };
