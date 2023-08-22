@@ -1,3 +1,5 @@
+import { Card } from '../components/Card';
+
 export const Game = () => {
-  return <div>Game</div>;
+  return <Card />;
 };
