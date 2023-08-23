@@ -1,3 +1,5 @@
+import { ThemeSelector } from '../components/ThemeSelector';
+
 export const Settings = () => {
-  return <div>Settings</div>;
+  return <ThemeSelector />;
 };

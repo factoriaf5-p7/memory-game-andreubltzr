@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Card } from '../components/Card';
 import { data } from '../data/data';
+import { Modal } from '../components/Modal';
 
 interface CardData {
   name: string;
@@ -17,6 +18,8 @@ export const Game = () => {
   const [shuffledData, setShuffledData] = useState<CardData[]>([]);
   const [clickedCards, setClickedCards] = useState<number[]>([]);
   const [clickCount, setClickCount] = useState(0);
+  const [guessedPairs, setGuessedPairs] = useState(0);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     const initialShuffledData = shuffleArray(
@@ -24,6 +27,12 @@ export const Game = () => {
     );
     setShuffledData(initialShuffledData);
   }, []);
+
+  useEffect(() => {
+    if (guessedPairs === data.length / 2) {
+      setShowModal(true);
+    }
+  }, [guessedPairs]);
 
   const startGame = () => {
     setIsGameStarted(true);
@@ -33,6 +42,7 @@ export const Game = () => {
     setShuffledData(initialShuffledData);
     setClickCount(0);
     setClickedCards([]);
+    setGuessedPairs(0);
   };
 
   const handleCardClick = (i: number) => {
@@ -51,6 +61,7 @@ export const Game = () => {
         const [index1, index2] = updatedClickedCards;
         if (shuffledData[index1].name === shuffledData[index2].name) {
           setClickedCards([]);
+          setGuessedPairs(guessedPairs + 1);
         } else {
           setTimeout(() => {
             const updatedData = [...shuffledData];
@@ -66,7 +77,10 @@ export const Game = () => {
 
   return (
     <div>
-      <div className="m-auto p-4">Click Count: {clickCount}</div>
+      <div className="m-2">
+        <div>Click Count: {clickCount}</div>
+        <div>Guessed Pairs: {guessedPairs}</div>
+      </div>
       <div className="grid grid-cols-6 gap-4">
         {shuffledData.map((card, i) => (
           <Card
@@ -88,6 +102,7 @@ export const Game = () => {
           Start
         </button>
       </div>
+      {showModal && <Modal onClose={() => setShowModal(false)} />}
     </div>
   );
 };
