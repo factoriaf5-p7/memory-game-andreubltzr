@@ -5,6 +5,8 @@ import { Game } from './pages/Game';
 import { Settings } from './pages/Settings';
 
 function App() {
+  localStorage.setItem('theme', 'superheroes');
+  localStorage.setItem('difficulty', 'easy');
   return (
     <BrowserRouter>
       <div className="container mx-auto">
