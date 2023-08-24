@@ -33,8 +33,8 @@ describe('CardsService', () => {
     expect(service).toBeDefined();
   });
 
-  it('findAll should return all cards', async () => {
-    const res = await service.findAll();
+  it('findAll should return cards with corresponding theme', async () => {
+    const res = await service.getCards('theme');
     expect(res).toEqual(cardArray);
   });
 });
