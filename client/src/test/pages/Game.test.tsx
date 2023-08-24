@@ -12,7 +12,7 @@ describe('Game Page', () => {
   });
 
   test('Game page should mount properly', () => {
-    const wrapper = render(<Game />);
-    expect(wrapper).toBeTruthy();
+    const gameComponent = render(<Game />);
+    expect(gameComponent).toBeTruthy();
   });
 });

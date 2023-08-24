@@ -15,8 +15,8 @@ export const Card = ({ name, img, isHidden, onClick }: CardProps) => {
     >
       {!isHidden && (
         <>
-          <img src={img} alt={name} />
-          <p>{name}</p>
+          <img src={img} alt={name} data-testid="card-img" />
+          <p data-testid="card-name">{name}</p>
         </>
       )}
     </div>

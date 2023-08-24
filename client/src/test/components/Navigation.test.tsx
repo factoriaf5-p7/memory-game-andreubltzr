@@ -4,12 +4,11 @@ import { MemoryRouter } from 'react-router-dom';
 
 describe('Navigation Component', () => {
   test('Navigation component mounts properly', () => {
-    const wrapper = render(
+    const navigation = render(
       <MemoryRouter>
         <Navigation />
       </MemoryRouter>
     );
-
-    expect(wrapper).toBeTruthy();
+    expect(navigation).toBeTruthy();
   });
 });

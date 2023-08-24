@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { Settings } from '../../pages/Settings';
 import { ThemeSelector } from '../../components/ThemeSelector';
@@ -14,16 +14,25 @@ describe('Settings Page', () => {
   });
   test('Settings page should mount properly', () => {
     const wrapper = render(<Settings />);
-
     expect(wrapper).toBeTruthy();
   });
 
-  test('ThemeSelector should render', () => {
+  test('Renders ThemeSelector options', () => {
+    const title = screen.getByText('animals');
+    expect(title).toBeInTheDocument();
+  });
+
+  test('Renders DifficultySelector options', () => {
+    const title = screen.getByText('hard');
+    expect(title).toBeInTheDocument();
+  });
+
+  test('ThemeSelector component should render', () => {
     const themeSelector = render(<ThemeSelector />);
     expect(themeSelector).toBeTruthy();
   });
 
-  test('DifficultySelector should render', () => {
+  test('DifficultySelector component should render', () => {
     const difficultySelector = render(<DifficultySelector />);
     expect(difficultySelector).toBeTruthy();
   });
