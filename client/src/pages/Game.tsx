@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { Card } from '../components/Card';
 import { data } from '../data/data';
 import { Modal } from '../components/Modal';
+import { GameInfo } from '../components/GameInfo';
+import axios from 'axios';
 
 interface CardData {
   name: string;
@@ -14,6 +16,7 @@ const shuffleArray = (array: CardData[]) => {
 };
 
 export const Game = () => {
+  const [cards, setCards] = useState();
   const [isGameStarted, setIsGameStarted] = useState(false);
   const [shuffledData, setShuffledData] = useState<CardData[]>([]);
   const [clickedCards, setClickedCards] = useState<number[]>([]);
@@ -22,10 +25,16 @@ export const Game = () => {
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
-    const initialShuffledData = shuffleArray(
-      data.map((card) => ({ ...card, isHidden: false }))
-    );
-    setShuffledData(initialShuffledData);
+    const getCards = async () => {
+      const res = await axios.get(
+        `http://localhost:3000/api/cards?theme=${localStorage.getItem('theme')}`
+      );
+      const cards = res.data;
+      cards.map((card) => ({ ...card, isHidden: false }));
+      setShuffledData(cards);
+      setCards(cards);
+    };
+    getCards();
   }, []);
 
   useEffect(() => {
@@ -37,7 +46,7 @@ export const Game = () => {
   const startGame = () => {
     setIsGameStarted(true);
     const initialShuffledData = shuffleArray(
-      data.map((card) => ({ ...card, isHidden: true }))
+      cards.map((card) => ({ ...card, isHidden: true }))
     );
     setShuffledData(initialShuffledData);
     setClickCount(0);
@@ -77,11 +86,8 @@ export const Game = () => {
 
   return (
     <div>
-      <div className="m-2">
-        <div>Click Count: {clickCount}</div>
-        <div>Guessed Pairs: {guessedPairs}</div>
-      </div>
-      <div className="grid grid-cols-6 gap-4">
+      <GameInfo clickCount={clickCount} guessedPairs={guessedPairs} />
+      <div className="grid grid-cols-6 gap-4 place-items-center">
         {shuffledData.map((card, i) => (
           <Card
             key={i}
@@ -94,7 +100,7 @@ export const Game = () => {
       </div>
       <div className="m-auto w-10 pt-5">
         <button
-          className={`bg-slate-400 px-6 py-2 text-xl ${
+          className={`text-xl py-2 px-6 border border-black ${
             isGameStarted ? 'hidden' : ''
           }`}
           onClick={startGame}

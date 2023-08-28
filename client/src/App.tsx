@@ -9,7 +9,7 @@ function App() {
   localStorage.setItem('difficulty', 'easy');
   return (
     <BrowserRouter>
-      <div className="container mx-auto">
+      <div className="container mx-auto h-screen">
         <Navigation />
         <Routes>
           <Route path="/" element={<Home />} />
