@@ -27,7 +27,9 @@ export const Game = () => {
   useEffect(() => {
     const getCards = async () => {
       const res = await axios.get(
-        `http://localhost:3000/api/cards?theme=${localStorage.getItem('theme')}`
+        `https://memory-game-andreubltzr-production.up.railway.app/api/cards?theme=${localStorage.getItem(
+          'theme'
+        )}`
       );
       const cards = res.data;
       cards.map((card) => ({ ...card, isHidden: false }));
