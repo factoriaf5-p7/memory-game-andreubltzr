@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 export const ThemeSelector = () => {
   const selectedTheme = localStorage.getItem('theme') || 'superheroes';
-  const themes = ['superheroes', 'animals', 'pokemons'];
+  const themes = ['superheroes', 'animals'];
   const [theme, setTheme] = useState(selectedTheme);
 
   const handleThemeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
